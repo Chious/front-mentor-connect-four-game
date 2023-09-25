@@ -1,0 +1,12 @@
+$color-black: #000000;
+$color-dark-purple: #5c2dd5;
+$color-purple: #7945ff;
+$color-pink: #fd6687;
+$color-yellow: #ffce67;
+$color-white: #ffffff;
+
+@mixin cardBoarder() {
+  background: $color-white;
+  border: 3px solid $color-black;
+  border-radius: 3px;
+}

@@ -1,0 +1,51 @@
+@import "./variable.scss";
+
+.menu-background {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: $color-black;
+  opacity: 0.8;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu {
+  @include cardBoarder();
+  background: $color-purple;
+
+  .container {
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  h1 {
+    color: $color-white;
+    font-weight: 700;
+  }
+
+  button {
+    @include cardBoarder();
+    width: 300px;
+    height: 40px;
+
+    h4 {
+      text-align: middle;
+      font-weight: 700;
+    }
+
+    &:hover {
+      border-color: $color-dark-purple;
+    }
+  }
+
+  .btn-quit {
+    background-color: $color-pink;
+    color: $color-white;
+  }
+}

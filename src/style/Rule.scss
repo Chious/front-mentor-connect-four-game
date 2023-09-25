@@ -1,0 +1,42 @@
+@import "./variable.scss";
+
+.rule {
+  max-width: 600px;
+  @include cardBoarder();
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px;
+
+    h1 {
+      text-align: center;
+      font-weight: 700;
+    }
+
+    h2 {
+      color: $color-dark-purple;
+      font-weight: 700;
+    }
+
+    h3.step {
+      font-weight: 700;
+    }
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: row;
+
+      .step {
+        width: 30px;
+      }
+    }
+  }
+}

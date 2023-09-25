@@ -1,0 +1,16 @@
+@import "../variable.scss";
+.tool-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-bottom: 35px;
+
+  button {
+    @include cardBoarder();
+    height: 25px;
+    background: $color-dark-purple;
+    color: $color-white;
+    border: none;
+  }
+}

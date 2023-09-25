@@ -1,0 +1,35 @@
+@import "./variable.scss";
+
+.starter {
+  @include cardBoarder();
+  background: $color-purple;
+
+  .container {
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  button {
+    @include cardBoarder();
+    width: 300px;
+    height: 40px;
+
+    h4 {
+      text-align: left;
+      font-weight: 700;
+    }
+
+    &:hover {
+      background: $color-yellow;
+    }
+  }
+
+  .btn--player--vs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
