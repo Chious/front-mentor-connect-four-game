@@ -1,13 +1,25 @@
-import { ReactComponent as PlayerLogo } from "../../assets/images/counter-red-large.svg";
+import { ReactComponent as PlayerLogoR } from "../../assets/images/counter-red-large.svg";
+import { ReactComponent as PlayerLogoY } from "../../assets/images/counter-yellow-large.svg";
+
 import "../../style/MainGame/PlayerCounter.scss";
 
-export default function PlayerCounter({ className }) {
+export default function PlayerCounter({ className, player, playerInfo }) {
+  const icon =
+    player === "1" ? (
+      <PlayerLogoR style={{ position: "relative", top: "-40px" }} />
+    ) : (
+      <PlayerLogoY style={{ position: "relative", top: "-40px" }} />
+    );
+
+  const [player1, player2] = [playerInfo.player1, playerInfo.player2];
+  const nowPlayer = player === "1" ? player1 : player2;
+
   return (
     <>
       <div className={`player-counter ${className}`}>
-        <PlayerLogo style={{ position: "relative", top: "-40px" }} />
-        <h2>PLAYER 1</h2>
-        <h1>12</h1>
+        {icon}
+        <h2>{`PLAYER ${player}`}</h2>
+        <h1>{nowPlayer}</h1>
       </div>
     </>
   );
