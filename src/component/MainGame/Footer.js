@@ -9,34 +9,41 @@ export default function Footer({
   gameState,
   playerInfo,
   setPlayerInfo,
+  setGameState,
 }) {
   const nowPlayer = gameState.player;
-  const time = Timer({ setGameBoard, gameState, playerInfo, setPlayerInfo });
+  const time = Timer({
+    setGameBoard,
+    gameState,
+    setGameState,
+    playerInfo,
+    setPlayerInfo,
+  });
 
-  const icon =
-    nowPlayer === 1 ? (
-      <MarkerR
-        style={{
-          transform: "rotate(180deg) scale(5)",
-          position: "relative",
-          left: "48%",
-          bottom: "80px",
-        }}
-      />
-    ) : (
-      <MarkerY
-        style={{
-          transform: "rotate(180deg) scale(5)",
-          position: "relative",
-          left: "48%",
-          bottom: "80px",
-        }}
-      />
-    );
+  const showPlayInfo = () => {
+    const icon =
+      nowPlayer === 1 ? (
+        <MarkerR
+          style={{
+            transform: "rotate(180deg) scale(5)",
+            position: "relative",
+            left: "48%",
+            bottom: "80px",
+          }}
+        />
+      ) : (
+        <MarkerY
+          style={{
+            transform: "rotate(180deg) scale(5)",
+            position: "relative",
+            left: "48%",
+            bottom: "80px",
+          }}
+        />
+      );
 
-  return (
-    <>
-      <section className="footer">
+    return (
+      <>
         <div
           className="footer-info"
           style={{
@@ -51,7 +58,33 @@ export default function Footer({
           <h4>{`PLAYER ${nowPlayer}'S TURN`}</h4>
           <h1>{`${time}s`}</h1>
         </div>
-        {icon}
+        <div className="icon-container">{icon}</div>
+      </>
+    );
+  };
+
+  const showWinner = () => {
+    const winner = gameState.winner;
+
+    const setCountinue = () => {
+      setGameState({ ...gameState, timerPause: false });
+    };
+
+    return (
+      <div className="winner-info">
+        <h4>{`PLAYER ${winner}`}</h4>
+        <h1>WINS</h1>
+        <button className="countinue-btn" onClick={setCountinue}>
+          Countinue
+        </button>
+      </div>
+    );
+  };
+
+  return (
+    <>
+      <section className="footer">
+        {gameState.timerPause === false ? showPlayInfo() : showWinner()}
       </section>
     </>
   );

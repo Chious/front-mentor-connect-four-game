@@ -23,10 +23,12 @@ function App() {
       player1: 0,
       player2: 0,
     },
+    timerPause: false,
     stage: {
       starter: true,
       pause: false,
       rule: null,
+      isShowResult: false,
     },
   });
 

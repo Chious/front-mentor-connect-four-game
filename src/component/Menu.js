@@ -7,13 +7,18 @@ export default function Menu({
   setPlayerInfo,
 }) {
   const handleClick = function () {
-    setGameState({ ...gameState, stage: { ...gameState.stage, pause: false } });
+    setGameState({
+      ...gameState,
+      timerPause: false,
+      stage: { ...gameState.stage, pause: false },
+    });
   };
 
   const handleClickQuit = function () {
     setGameState({
       ...gameState,
-      stage: { ...gameState.stage, starter: true, pause: null },
+      timerPause: false,
+      stage: { ...gameState.stage, starter: true, pause: false },
     });
   };
 

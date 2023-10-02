@@ -178,6 +178,16 @@ export default function Main({
     return null;
   };
 
+  const setPause = function () {
+    setGameState({
+      ...gameState,
+      timerPause: true,
+    });
+  };
+  const setWinner = (setWinnerState) => {
+    setGameState({ ...gameState, winner: setWinnerState });
+  };
+
   // 1. Game Start
   useEffect(() => {
     let winnerResult = checkWinner(gameBoard);
@@ -191,15 +201,15 @@ export default function Main({
     if (winnerResult === null) {
       setGameState({ ...gameState, player: gameState.player === 1 ? 2 : 1 });
     } else {
+      setPause();
+      setWinner(winnerResult.winner);
       renderGameRecord(gameBoard, winnerResult);
-      console.log(winnerResult);
-      console.log(gameBoard);
     }
 
     // show result
   }, [gameBoard]);
 
-  // 2. If time over, show the result
+  
 
   return (
     <>

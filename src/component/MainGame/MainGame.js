@@ -37,6 +37,7 @@ export default function MainGame({
           playerInfo={playerInfo}
           setPlayerInfo={setPlayerInfo}
           setGameBoard={setGameBoard}
+          setGameState={setGameState}
         />
       </section>
     </>
