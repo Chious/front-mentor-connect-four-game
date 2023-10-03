@@ -95,23 +95,27 @@ function Timer({
     if (anyNonZero) {
       setIsRunning(true);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [player]);
 
   // Reset the timer to 30 seconds when it reaches 0
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (seconds === 0) {
       setPause();
       setOutOfTimeWinner();
       clearBoard();
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seconds]); // Depend on seconds
 
   // While Pause, Stop the timer
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     let pauseState = gameState.timerPause;
     setIsRunning(!pauseState);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pause]);
 
   const winState = gameState.winner;
@@ -125,12 +129,13 @@ function Timer({
       setIsRunning(true);
       setSeconds(5);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [winState]);
 
   const resetState = gameState.stage.reset;
   const isShowResult = gameState.stage.isShowResult;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (resetState === true) {
       //1. reset board
@@ -174,6 +179,8 @@ function Timer({
       //2. reset seconds
       setSeconds(5);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resetState, isShowResult]);
 
   return seconds;

@@ -216,7 +216,6 @@ export default function Main({
   };
 
   // 1. Game Start
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     let winnerResult = checkWinner(gameBoard);
 
@@ -235,6 +234,7 @@ export default function Main({
     }
 
     // show result
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameBoard]);
 
   return (
@@ -249,6 +249,7 @@ export default function Main({
       >
         <div className="game-onhold" style={{ position: "absolute" }}>
           <button
+            className="btn-col"
             style={{ height: 20 }}
             onClick={(e) => {
               e.preventDefault();
@@ -258,6 +259,7 @@ export default function Main({
             opt1
           </button>
           <button
+            className="btn-col"
             style={{ height: 20 }}
             onClick={(e) => {
               e.preventDefault();
@@ -267,6 +269,7 @@ export default function Main({
             opt2
           </button>
           <button
+            className="btn-col"
             style={{ height: 20 }}
             onClick={(e) => {
               e.preventDefault();
@@ -276,6 +279,7 @@ export default function Main({
             opt3
           </button>
           <button
+            className="btn-col"
             style={{ height: 20 }}
             onClick={(e) => {
               e.preventDefault();
@@ -285,6 +289,7 @@ export default function Main({
             opt4
           </button>
           <button
+            className="btn-col"
             style={{ height: 20 }}
             onClick={(e) => {
               e.preventDefault();
@@ -294,6 +299,7 @@ export default function Main({
             opt5
           </button>
           <button
+            className="btn-col"
             style={{ height: 20 }}
             onClick={(e) => {
               e.preventDefault();
@@ -303,6 +309,7 @@ export default function Main({
             opt6
           </button>
           <button
+            className="btn-col"
             style={{ height: 20 }}
             onClick={(e) => {
               e.preventDefault();
