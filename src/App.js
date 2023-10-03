@@ -19,10 +19,7 @@ function App() {
   const [gameState, setGameState] = useState({
     player: 1,
     winner: 1,
-    playerInfo: {
-      player1: 0,
-      player2: 0,
-    },
+
     timerPause: false,
     stage: {
       starter: true,
