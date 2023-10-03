@@ -8,6 +8,8 @@ export default function Main({
   setGameBoard,
   gameState,
   setGameState,
+  playerInfo,
+  setPlayerInfo,
 }) {
   const onholdGameClick = function (player, row) {
     let currentRow = gameBoard[row];
@@ -185,7 +187,32 @@ export default function Main({
     });
   };
   const setWinner = (setWinnerState) => {
-    setGameState({ ...gameState, winner: setWinnerState });
+    let winner = gameState.player;
+
+    if (winner === 1) {
+      setPlayerInfo({ ...playerInfo, player1: playerInfo.player1 + 1 });
+      setGameState({
+        ...gameState,
+        winner: winner,
+        stage: { ...gameState.stage, isShowResult: true },
+      });
+    } else if (winner === 2) {
+      setPlayerInfo({
+        ...playerInfo,
+        player2: playerInfo.player2 + 1,
+      });
+      setGameState({
+        ...gameState,
+        winner: winner,
+        stage: { ...gameState.stage, isShowResult: true },
+      });
+    }
+
+    setGameState({
+      ...gameState,
+      winner: setWinnerState,
+      stage: { ...gameState.stage, isShowResult: true },
+    });
   };
 
   // 1. Game Start
@@ -208,8 +235,6 @@ export default function Main({
 
     // show result
   }, [gameBoard]);
-
-  
 
   return (
     <>

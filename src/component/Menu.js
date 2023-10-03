@@ -6,7 +6,7 @@ export default function Menu({
   setGameState,
   setPlayerInfo,
 }) {
-  const handleClick = function () {
+  const handleContinueClick = function () {
     setGameState({
       ...gameState,
       timerPause: false,
@@ -19,6 +19,13 @@ export default function Menu({
       ...gameState,
       timerPause: false,
       stage: { ...gameState.stage, starter: true, pause: false },
+    });
+  };
+
+  const handleResetClick = () => {
+    setGameState({
+      ...gameState,
+      stage: { ...gameState, reset: true, isShowResult: false },
     });
   };
 
@@ -46,10 +53,10 @@ export default function Menu({
         <div className="menu">
           <div className="container">
             <h1>PAUSE</h1>
-            <button onClick={handleClick}>
+            <button onClick={handleContinueClick}>
               <h4>COUNTINUE GAME</h4>
             </button>
-            <button>
+            <button onClick={handleResetClick}>
               <h4>RESTART</h4>
             </button>
             <button

@@ -1,7 +1,14 @@
 import "../style/Rule.scss";
 import { ReactComponent as OkImage } from "../assets/images/icon-check.svg";
 
-export default function Rule() {
+export default function Rule({ gameState, setGameState }) {
+  const handleClick = () => {
+    setGameState({
+      ...gameState,
+      stage: { ...gameState.stage, starter: true, rule: false },
+    });
+  };
+
   return (
     <>
       <div className="rule">
@@ -43,7 +50,10 @@ export default function Rule() {
           </div>
         </div>
 
-        <OkImage style={{ position: "relative", bottom: -50, left: "45%" }} />
+        <OkImage
+          style={{ position: "relative", bottom: -50, left: "45%" }}
+          onClick={handleClick}
+        />
       </div>
     </>
   );

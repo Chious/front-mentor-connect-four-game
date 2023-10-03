@@ -10,6 +10,12 @@ export default function Starter({ setGameState, gameState }) {
     });
   };
 
+  const handleRule = () => {
+    setGameState({
+      ...gameState,
+      stage: { ...gameState.stage, starter: false, rule: true },
+    });
+  };
   return (
     <>
       <div className="starter">
@@ -19,7 +25,7 @@ export default function Starter({ setGameState, gameState }) {
             <h4>PLAY VS PLAYER</h4>
             <PlayerVS style={{ maxHeight: 25 }} />
           </button>
-          <button>
+          <button onClick={handleRule}>
             <h4>GAME RULES</h4>
           </button>
         </div>

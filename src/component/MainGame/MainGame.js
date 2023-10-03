@@ -21,6 +21,8 @@ export default function MainGame({
           setGameBoard={setGameBoard}
           gameState={gameState}
           setGameState={setGameState}
+          setPlayerInfo={setPlayerInfo}
+          playerInfo={playerInfo}
         />
         <PlayerCounter
           className="game-counter-player1"
@@ -33,6 +35,7 @@ export default function MainGame({
           playerInfo={playerInfo}
         />
         <Footer
+          gameBoard={gameBoard}
           gameState={gameState}
           playerInfo={playerInfo}
           setPlayerInfo={setPlayerInfo}

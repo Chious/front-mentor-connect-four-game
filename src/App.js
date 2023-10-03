@@ -18,7 +18,7 @@ function App() {
 
   const [gameState, setGameState] = useState({
     player: 1,
-    winner: null,
+    winner: 1,
     playerInfo: {
       player1: 0,
       player2: 0,
@@ -28,6 +28,7 @@ function App() {
       starter: true,
       pause: false,
       rule: null,
+      reset: null,
       isShowResult: false,
     },
   });
@@ -55,7 +56,7 @@ function App() {
           />
         )}
 
-        {!gameState.stage.starter && (
+        {!gameState.stage.starter & !gameState.stage.rule && (
           <MainGame
             gameBoard={gameBoard}
             setGameBoard={setGameBoard}

@@ -1,5 +1,5 @@
-import { ReactComponent as PlayerLogoR } from "../../assets/images/counter-red-large.svg";
-import { ReactComponent as PlayerLogoY } from "../../assets/images/counter-yellow-large.svg";
+import { ReactComponent as PlayerLogoR } from "../../assets/images/player-one.svg";
+import { ReactComponent as PlayerLogoY } from "../../assets/images/player-two.svg";
 
 import "../../style/MainGame/PlayerCounter.scss";
 

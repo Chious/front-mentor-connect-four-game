@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 function Timer({
+  gameBoard,
   setGameBoard,
   gameState,
   setGameState,
@@ -9,7 +10,6 @@ function Timer({
 }) {
   const [seconds, setSeconds] = useState(30);
   const [isRunning, setIsRunning] = useState(true);
-  const [firstTime, setFirstTime] = useState(0);
   const pause = gameState.timerPause;
 
   const setPause = function () {
@@ -27,13 +27,21 @@ function Timer({
 
     if (winner === 1) {
       setPlayerInfo({ ...playerInfo, player1: playerInfo.player1 + 1 });
-      setGameState({ ...gameState, winner: winner });
+      setGameState({
+        ...gameState,
+        winner: winner,
+        stage: { ...gameState.stage, isShowResult: true },
+      });
     } else if (winner === 2) {
       setPlayerInfo({
         ...playerInfo,
         player2: playerInfo.player2 + 1,
       });
-      setGameState({ ...gameState, winner: winner });
+      setGameState({
+        ...gameState,
+        winner: winner,
+        stage: { ...gameState.stage, isShowResult: true },
+      });
     }
   };
 
@@ -75,12 +83,15 @@ function Timer({
   // Reset the timer if switch player
   useEffect(() => {
     setSeconds(5);
-    if (firstTime < 2) {
-      // Start the timer, if first user click the button
-      setFirstTime(firstTime + 1);
-    }
 
-    if (firstTime >= 2 && pause === false) {
+    // if gameBoard is clear, stop the timer
+    const anyNonZero = Object.values(gameBoard).some((row) =>
+      row.some((val) => val !== 0)
+    );
+    if (!anyNonZero) {
+      setIsRunning(false);
+    }
+    if (anyNonZero) {
       setIsRunning(true);
     }
   }, [player]);
@@ -98,20 +109,6 @@ function Timer({
   useEffect(() => {
     let pauseState = gameState.timerPause;
     setIsRunning(!pauseState);
-
-    if (pause === false) {
-      let defaultBoard = {
-        0: [0, 0, 0, 0, 0, 0],
-        1: [0, 0, 0, 0, 0, 0],
-        2: [0, 0, 0, 0, 0, 0],
-        3: [0, 0, 0, 0, 0, 0],
-        4: [0, 0, 0, 0, 0, 0],
-        5: [0, 0, 0, 0, 0, 0],
-        6: [0, 0, 0, 0, 0, 0],
-      };
-
-      setGameBoard(defaultBoard);
-    }
   }, [pause]);
 
   const winState = gameState.winner;
@@ -122,9 +119,58 @@ function Timer({
     }
 
     if (winState === null) {
+      setIsRunning(true);
       setSeconds(5);
     }
   }, [winState]);
+
+  const resetState = gameState.stage.reset;
+  const isShowResult = gameState.stage.isShowResult;
+
+  useEffect(() => {
+    if (resetState === true) {
+      //1. reset board
+      let defaultBoard = {
+        0: [0, 0, 0, 0, 0, 0],
+        1: [0, 0, 0, 0, 0, 0],
+        2: [0, 0, 0, 0, 0, 0],
+        3: [0, 0, 0, 0, 0, 0],
+        4: [0, 0, 0, 0, 0, 0],
+        5: [0, 0, 0, 0, 0, 0],
+        6: [0, 0, 0, 0, 0, 0],
+      };
+      setGameBoard(defaultBoard);
+      //2. reset seconds
+      setSeconds(5);
+      //3. clear playerInfo
+      setPlayerInfo({ player1: 0, player2: 0 });
+      //4. player = 1
+
+      setGameState({
+        ...gameState,
+        player: 1,
+        winner: null,
+        timerPause: false,
+        stage: { ...gameState.stage, reset: null, pause: false },
+      });
+    }
+
+    if (isShowResult === false) {
+      //1. reset board
+      let defaultBoard = {
+        0: [0, 0, 0, 0, 0, 0],
+        1: [0, 0, 0, 0, 0, 0],
+        2: [0, 0, 0, 0, 0, 0],
+        3: [0, 0, 0, 0, 0, 0],
+        4: [0, 0, 0, 0, 0, 0],
+        5: [0, 0, 0, 0, 0, 0],
+        6: [0, 0, 0, 0, 0, 0],
+      };
+      setGameBoard(defaultBoard);
+      //2. reset seconds
+      setSeconds(5);
+    }
+  }, [resetState, isShowResult]);
 
   return seconds;
 }

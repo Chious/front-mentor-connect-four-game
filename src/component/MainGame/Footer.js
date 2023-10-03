@@ -5,6 +5,7 @@ import "../../style/MainGame/Footer.scss";
 import Timer from "./Timer";
 
 export default function Footer({
+  gameBoard,
   setGameBoard,
   gameState,
   playerInfo,
@@ -13,6 +14,7 @@ export default function Footer({
 }) {
   const nowPlayer = gameState.player;
   const time = Timer({
+    gameBoard,
     setGameBoard,
     gameState,
     setGameState,
@@ -67,7 +69,12 @@ export default function Footer({
     const winner = gameState.winner;
 
     const setCountinue = () => {
-      setGameState({ ...gameState, timerPause: false });
+      setGameState({
+        ...gameState,
+        timerPause: false,
+        winner: null,
+        stage: { ...gameState.stage, isShowResult: false },
+      });
     };
 
     return (
@@ -84,7 +91,7 @@ export default function Footer({
   return (
     <>
       <section className="footer">
-        {gameState.timerPause === false ? showPlayInfo() : showWinner()}
+        {gameState.stage.isShowResult === false ? showPlayInfo() : showWinner()}
       </section>
     </>
   );

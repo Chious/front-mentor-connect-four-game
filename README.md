@@ -100,9 +100,9 @@ Game state would be control by `Timer.js` and `Main.js`
 
 1. Since it take me lots of time while design method, I didn't desgin RWD for laptop and phone view.
 2. While player win, board should show oordinates. I've tried to display this by `renderGameRecord` in `Main.js`, not sure why this didn't work.
-3. Sometimes it didn't show wiiner while timer comes to 0s.
-4. while palyer draw, it should present draw result and clear board.
-5. console keep shows warning about useEffect
+3. while palyer draw, it should present draw result and clear board.
+4. console keep shows warning about useEffect
+5. it's wired showing "0" at the `starter`.
 
 ### Useful resources
 
