@@ -45,9 +45,8 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Solution URL: [https://github.com/Chious/front-mentor-connect-four-game](https://github.com/Chious/front-mentor-connect-four-game)
 - Live Site URL: [https://dazzling-conkies-026a37.netlify.app](https://dazzling-conkies-026a37.netlify.app)
-
 ## My process
 
 - Create App Component, Reset CSS, Font, Menu, Starter (4hr)
