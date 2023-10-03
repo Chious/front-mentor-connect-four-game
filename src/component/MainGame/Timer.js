@@ -81,6 +81,7 @@ function Timer({
   }, [isRunning]); // Only depend on isRunning
 
   // Reset the timer if switch player
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     setSeconds(5);
 
@@ -97,6 +98,7 @@ function Timer({
   }, [player]);
 
   // Reset the timer to 30 seconds when it reaches 0
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (seconds === 0) {
       setPause();
@@ -106,6 +108,7 @@ function Timer({
   }, [seconds]); // Depend on seconds
 
   // While Pause, Stop the timer
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     let pauseState = gameState.timerPause;
     setIsRunning(!pauseState);
@@ -127,6 +130,7 @@ function Timer({
   const resetState = gameState.stage.reset;
   const isShowResult = gameState.stage.isShowResult;
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (resetState === true) {
       //1. reset board

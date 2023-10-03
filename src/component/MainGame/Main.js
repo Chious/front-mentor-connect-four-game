@@ -216,6 +216,7 @@ export default function Main({
   };
 
   // 1. Game Start
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     let winnerResult = checkWinner(gameBoard);
 
