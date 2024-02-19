@@ -2,7 +2,7 @@ import "../style/Rule.scss";
 import { ReactComponent as OkImage } from "../assets/images/icon-check.svg";
 import { useNavigate } from "react-router-dom";
 
-export default function Rule() {
+export default function RulePage() {
   const navigate = useNavigate();
 
   const handleClick = () => {

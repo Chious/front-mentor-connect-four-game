@@ -3,7 +3,7 @@ import { ReactComponent as Logo } from "../assets/images/logo.svg";
 import { ReactComponent as PlayerVS } from "../assets/images/player-vs-player.svg";
 import "../style/Starter.scss";
 
-export default function Starter() {
+export default function StarterPage() {
   const navigate = useNavigate();
 
   const handleStart = function () {

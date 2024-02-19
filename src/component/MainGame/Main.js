@@ -2,39 +2,23 @@ import boardWhite from "../../assets/images/board-layer-white-large.svg";
 import boardBlack from "../../assets/images/board-layer-black-large.svg";
 import GameRecordIcon from "./GameRecordIcon";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { win, pause, switchPlayer } from "../../redux/gameSlice";
+import { updateBoard } from "../../redux/boardSlice";
 
-export default function Main({
-  gameBoard,
-  setGameBoard,
-  gameState,
-  setGameState,
-  playerInfo,
-  setPlayerInfo,
-}) {
+export default function Main() {
+  const dispatch = useDispatch();
+  //game board
+  const gameBoard = useSelector((state) => state.board.board);
   const onholdGameClick = function (player, row) {
-    let currentRow = gameBoard[row];
-    let valueToReplace = 0;
-    let replacementValue = player;
-
-    // Find the index of the latest occurrence of valueToReplace
-    let lastIndex = -1;
-    for (let i = currentRow.length - 1; i >= 0; i--) {
-      if (currentRow[i] === valueToReplace) {
-        lastIndex = i;
-        break;
-      }
-    }
-
-    // Check if the valueToReplace exists in the array
-    if (lastIndex !== -1) {
-      // Replace the latest occurrence with replacementValue
-      currentRow[lastIndex] = replacementValue;
-    }
-
-    setGameBoard({ ...gameBoard, [row]: currentRow });
+    dispatch(updateBoard((row = { row }), (player = { player })));
   };
 
+  //game info
+  const gameState = useSelector((state) => state.game);
+
   const [GameRecordIcons, setGameRecordIcons] = useState([]);
+
   const renderGameRecord = function (gameBoard, winnerResult) {
     // Initialize an array to store the components
     const icons = [];
@@ -180,39 +164,14 @@ export default function Main({
     return null;
   };
 
-  const setPause = function () {
-    setGameState({
-      ...gameState,
-      timerPause: true,
-    });
-  };
   const setWinner = (setWinnerState) => {
-    let winner = gameState.player;
+    let winner = setWinnerState;
 
     if (winner === 1) {
-      setPlayerInfo({ ...playerInfo, player1: playerInfo.player1 + 1 });
-      setGameState({
-        ...gameState,
-        winner: winner,
-        stage: { ...gameState.stage, isShowResult: true },
-      });
+      dispatch(win(1));
     } else if (winner === 2) {
-      setPlayerInfo({
-        ...playerInfo,
-        player2: playerInfo.player2 + 1,
-      });
-      setGameState({
-        ...gameState,
-        winner: winner,
-        stage: { ...gameState.stage, isShowResult: true },
-      });
+      dispatch(win(2));
     }
-
-    setGameState({
-      ...gameState,
-      winner: setWinnerState,
-      stage: { ...gameState.stage, isShowResult: true },
-    });
   };
 
   // 1. Game Start
@@ -226,9 +185,9 @@ export default function Main({
 
     // toggle the player, if nobody win
     if (winnerResult === null) {
-      setGameState({ ...gameState, player: gameState.player === 1 ? 2 : 1 });
+      dispatch(switchPlayer());
     } else {
-      setPause();
+      dispatch(pause());
       setWinner(winnerResult.winner);
       renderGameRecord(gameBoard, winnerResult);
     }

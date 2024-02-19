@@ -1,20 +1,17 @@
+import { useDispatch } from "react-redux";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import "../../style/MainGame/Toolbar.scss";
+import { reset } from "../../redux/gameSlice";
 
-export default function Toolbar({ gameState, setGameState }) {
+export default function Toolbar({ setOpenMenu }) {
   const handleMenuClick = function () {
-    setGameState({
-      ...gameState,
-      timerPause: true,
-      stage: { ...gameState, pause: true, isShowResult: false },
-    });
+    setOpenMenu(true);
   };
 
+  const dispatch = useDispatch();
+
   const handleResetClick = () => {
-    setGameState({
-      ...gameState,
-      stage: { ...gameState, reset: true, isShowResult: false },
-    });
+    dispatch(reset());
   };
 
   return (

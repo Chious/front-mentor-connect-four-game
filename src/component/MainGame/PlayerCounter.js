@@ -1,9 +1,9 @@
 import { ReactComponent as PlayerLogoR } from "../../assets/images/player-one.svg";
 import { ReactComponent as PlayerLogoY } from "../../assets/images/player-two.svg";
-
+import { useSelector } from "react-redux";
 import "../../style/MainGame/PlayerCounter.scss";
 
-export default function PlayerCounter({ className, player, playerInfo }) {
+export default function PlayerCounter({ className, player }) {
   const icon =
     player === "1" ? (
       <PlayerLogoR style={{ position: "relative", top: "-40px" }} />
@@ -11,7 +11,8 @@ export default function PlayerCounter({ className, player, playerInfo }) {
       <PlayerLogoY style={{ position: "relative", top: "-40px" }} />
     );
 
-  const [player1, player2] = [playerInfo.player1, playerInfo.player2];
+  const playerInfo = useSelector((state) => state.game.score);
+  const { player1, player2 } = playerInfo;
   const nowPlayer = player === "1" ? player1 : player2;
 
   return (

@@ -3,24 +3,15 @@ import { ReactComponent as MarkerR } from "../../assets/images/marker-red.svg";
 
 import "../../style/MainGame/Footer.scss";
 import Timer from "./Timer";
+import { useDispatch, useSelector } from "react-redux";
+import { start } from "../../redux/gameSlice";
 
-export default function Footer({
-  gameBoard,
-  setGameBoard,
-  gameState,
-  playerInfo,
-  setPlayerInfo,
-  setGameState,
-}) {
+export default function Footer() {
+  const dispatch = useDispatch();
+  const gameState = useSelector((state) => state.game);
+
   const nowPlayer = gameState.player;
-  const time = Timer({
-    gameBoard,
-    setGameBoard,
-    gameState,
-    setGameState,
-    playerInfo,
-    setPlayerInfo,
-  });
+  const time = Timer();
 
   const showPlayInfo = () => {
     const icon =
@@ -69,12 +60,7 @@ export default function Footer({
     const winner = gameState.winner;
 
     const setCountinue = () => {
-      setGameState({
-        ...gameState,
-        timerPause: false,
-        winner: null,
-        stage: { ...gameState.stage, isShowResult: false },
-      });
+      dispatch(start());
     };
 
     return (
@@ -91,7 +77,7 @@ export default function Footer({
   return (
     <>
       <section className="footer">
-        {gameState.stage.isShowResult === false ? showPlayInfo() : showWinner()}
+        {gameState.stage !== "end" ? showPlayInfo() : showWinner()}
       </section>
     </>
   );

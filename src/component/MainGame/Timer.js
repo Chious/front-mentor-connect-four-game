@@ -1,62 +1,36 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { win, reset, pause } from "../../redux/gameSlice";
+import { clearGameBoard } from "../../redux/boardSlice";
 
-function Timer({
-  gameBoard,
-  setGameBoard,
-  gameState,
-  setGameState,
-  playerInfo,
-  setPlayerInfo,
-}) {
+function Timer() {
   const [seconds, setSeconds] = useState(30);
   const [isRunning, setIsRunning] = useState(true);
-  const pause = gameState.timerPause;
 
-  const setPause = function () {
-    setGameState({
-      ...gameState,
-      timerPause: true,
-    });
+  //score info
+  const dispatch = useDispatch();
+
+  //gameboard info
+  const gameBoard = useSelector((state) => state.board.board);
+  const clearBoard = () => {
+    dispatch(clearGameBoard());
   };
 
-  const player = gameState.player;
+  //gameState
+  const gameState = useSelector((state) => state.game);
+  const { stage, player } = gameState;
 
   const setOutOfTimeWinner = () => {
     let nowPlayer = gameState.player;
     let winner = nowPlayer === 1 ? 2 : 1;
 
     if (winner === 1) {
-      setPlayerInfo({ ...playerInfo, player1: playerInfo.player1 + 1 });
-      setGameState({
-        ...gameState,
-        winner: winner,
-        stage: { ...gameState.stage, isShowResult: true },
-      });
+      //setup score
+      dispatch(win(1));
     } else if (winner === 2) {
-      setPlayerInfo({
-        ...playerInfo,
-        player2: playerInfo.player2 + 1,
-      });
-      setGameState({
-        ...gameState,
-        winner: winner,
-        stage: { ...gameState.stage, isShowResult: true },
-      });
+      //setup score
+      dispatch(win(2));
     }
-  };
-
-  const clearBoard = () => {
-    let defaultBoard = {
-      0: [0, 0, 0, 0, 0, 0],
-      1: [0, 0, 0, 0, 0, 0],
-      2: [0, 0, 0, 0, 0, 0],
-      3: [0, 0, 0, 0, 0, 0],
-      4: [0, 0, 0, 0, 0, 0],
-      5: [0, 0, 0, 0, 0, 0],
-      6: [0, 0, 0, 0, 0, 0],
-    };
-
-    setGameBoard(defaultBoard);
   };
 
   useEffect(() => {
@@ -102,7 +76,7 @@ function Timer({
   // Reset the timer to 30 seconds when it reaches 0
   useEffect(() => {
     if (seconds === 0) {
-      setPause();
+      dispatch(pause());
       setOutOfTimeWinner();
       clearBoard();
     }
@@ -110,18 +84,10 @@ function Timer({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seconds]); // Depend on seconds
 
-  // While Pause, Stop the timer
-  useEffect(() => {
-    let pauseState = gameState.timerPause;
-    setIsRunning(!pauseState);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pause]);
-
   const winState = gameState.winner;
   useEffect(() => {
     if (winState !== null) {
-      setPause();
+      dispatch(pause());
       setSeconds(5);
     }
 
@@ -133,55 +99,31 @@ function Timer({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [winState]);
 
-  const resetState = gameState.stage.reset;
-  const isShowResult = gameState.stage.isShowResult;
-
   useEffect(() => {
-    if (resetState === true) {
+    if (stage === "reset") {
       //1. reset board
-      let defaultBoard = {
-        0: [0, 0, 0, 0, 0, 0],
-        1: [0, 0, 0, 0, 0, 0],
-        2: [0, 0, 0, 0, 0, 0],
-        3: [0, 0, 0, 0, 0, 0],
-        4: [0, 0, 0, 0, 0, 0],
-        5: [0, 0, 0, 0, 0, 0],
-        6: [0, 0, 0, 0, 0, 0],
-      };
-      setGameBoard(defaultBoard);
+      clearBoard();
       //2. reset seconds
       setSeconds(5);
       //3. clear playerInfo
-      setPlayerInfo({ player1: 0, player2: 0 });
-      //4. player = 1
-
-      setGameState({
-        ...gameState,
-        player: 1,
-        winner: null,
-        timerPause: false,
-        stage: { ...gameState.stage, reset: null, pause: false },
-      });
+      dispatch(reset());
     }
 
-    if (isShowResult === false) {
+    if (stage === "pause") {
+      setIsRunning(false);
+    }
+
+    if (stage === "end") {
       //1. reset board
-      let defaultBoard = {
-        0: [0, 0, 0, 0, 0, 0],
-        1: [0, 0, 0, 0, 0, 0],
-        2: [0, 0, 0, 0, 0, 0],
-        3: [0, 0, 0, 0, 0, 0],
-        4: [0, 0, 0, 0, 0, 0],
-        5: [0, 0, 0, 0, 0, 0],
-        6: [0, 0, 0, 0, 0, 0],
-      };
-      setGameBoard(defaultBoard);
-      //2. reset seconds
+      clearBoard();
+      //2. Stop the timer
+      setIsRunning(false);
+      //3. reset seconds
       setSeconds(5);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resetState, isShowResult]);
+  }, [stage]);
 
   return seconds;
 }
