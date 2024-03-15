@@ -2,6 +2,11 @@
 
 This is a solution to the [Connect Four game challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/connect-four-game-6G8QVH923s). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
+#### Todo 備註（0315）
+
+- 顯示結果 UI 仍然有些顯示 Bug。
+- 待將 updateBoard()以 useMemo 改寫。
+
 ## Table of contents
 
 - [Overview](#overview)
@@ -35,18 +40,11 @@ Users should be able to:
 
 ![](./screenshot.jpg)
 
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it.
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
-
 ### Links
 
 - Solution URL: [https://github.com/Chious/front-mentor-connect-four-game](https://github.com/Chious/front-mentor-connect-four-game)
 - Live Site URL: [https://dazzling-conkies-026a37.netlify.app](https://dazzling-conkies-026a37.netlify.app)
+
 ## My process
 
 - Create App Component, Reset CSS, Font, Menu, Starter (4hr)

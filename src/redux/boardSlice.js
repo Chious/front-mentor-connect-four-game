@@ -31,8 +31,7 @@ const boardSlice = createSlice({
 
     updateBoard: (state, action) => {
       const gameBoard = state.board;
-      const row = action.payload.row;
-      const player = action.payload.player;
+      const { row, player } = action.payload;
 
       let currentRow = gameBoard[row];
       let valueToReplace = 0;

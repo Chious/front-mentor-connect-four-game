@@ -11,7 +11,7 @@ export default function Main() {
   //game board
   const gameBoard = useSelector((state) => state.board.board);
   const onholdGameClick = function (player, row) {
-    dispatch(updateBoard((row = { row }), (player = { player })));
+    dispatch(updateBoard({ row: row, player: player }));
   };
 
   //game info
@@ -19,7 +19,11 @@ export default function Main() {
 
   const [GameRecordIcons, setGameRecordIcons] = useState([]);
 
-  const renderGameRecord = function (gameBoard, winnerResult) {
+  const renderGameRecord = function (
+    gameBoard,
+    winnerResult,
+    setGameRecordIcons
+  ) {
     // Initialize an array to store the components
     const icons = [];
     let coordinates = winnerResult && winnerResult.coordinates;
@@ -179,7 +183,7 @@ export default function Main() {
     let winnerResult = checkWinner(gameBoard);
 
     // 1. Render Icon in the board
-    renderGameRecord(gameBoard, winnerResult);
+    renderGameRecord(gameBoard, winnerResult, setGameRecordIcons);
 
     // 2. Check if anyone win
 
@@ -189,7 +193,7 @@ export default function Main() {
     } else {
       dispatch(pause());
       setWinner(winnerResult.winner);
-      renderGameRecord(gameBoard, winnerResult);
+      renderGameRecord(gameBoard, winnerResult, setGameRecordIcons);
     }
 
     // show result
